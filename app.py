@@ -30,12 +30,32 @@ st.markdown(
     }
 
     .css-6qob1r {
-        background-color: #324280;
+        background-color: #324280 !important;
     }
 
     .css-1y4qcq6 {
-        background-color: #324280;
-    }    
+        background-color: #324280 !important;
+    }
+
+    /* Garantir que a sidebar tenha fundo azul completo */
+    .sidebar .sidebar-content {
+        background-color: #324280 !important;  /* Fundo azul na sidebar */
+        color: white !important;  /* Texto branco na sidebar */
+        width: 250px !important;  /* Definir uma largura fixa para a sidebar */
+        padding-top: 0px !important;  /* Garantir que o topo da sidebar tenha o fundo azul */
+    }
+
+    /* Garantir que a área do cabeçalho da sidebar também seja azul */
+    .sidebar .sidebar-header {
+        background-color: #324280 !important;  /* Cor de fundo azul na área do cabeçalho */
+        color: white !important;  /* Cor do texto branca no cabeçalho */
+    }
+
+    /* Garantir que o conteúdo da aplicação tenha uma margem confortável */
+    .stApp {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 
     /* Garantir que a tabela tenha fundo branco e texto preto e ocupe a largura total */
     .stDataFrame table, .stDataFrame th, .stDataFrame td {
@@ -49,19 +69,6 @@ st.markdown(
     .stDataFrame th, .stDataFrame td {
         text-align: left !important;  /* Alinhar o texto à esquerda */
         padding: 10px !important;  /* Adicionar um pouco de espaçamento nas células */
-    }
-
-    /* Garantir que a aplicação não tenha margens adicionais */
-    .stApp {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Ajustar a barra lateral */
-    .sidebar .sidebar-content {
-        background-image: linear-gradient(#2e7bcf, #2e7bcf);  /* Fundo azul na sidebar */
-        color: white;  /* Texto branco na sidebar */
-        width: 250px !important;  /* Definir uma largura fixa para a sidebar */
     }
     </style>
     """, 

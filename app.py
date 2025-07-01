@@ -82,7 +82,7 @@ st.markdown(
 )
 
 def load_data():
-    file_path = "./data/book.csv"
+    file_path = "./Book.csv"
     
     # Verificar se o arquivo existe no caminho local
     if os.path.exists(file_path):

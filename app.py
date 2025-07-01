@@ -27,6 +27,14 @@ st.markdown(
         padding-right: 0px !important;
     }
 
+    .css-6qob1r {
+        background-color: #324280;
+    }
+
+    .css-1y4qcq6 {
+        background-color: #324280;
+    }    
+
     /* Garantir que a tabela tenha fundo branco e texto preto e ocupe a largura total */
     .stDataFrame table, .stDataFrame th, .stDataFrame td {
         color: black !important;  /* Texto preto dentro da tabela */

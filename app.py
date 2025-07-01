@@ -23,8 +23,10 @@ st.markdown(
         background-color: white;  /* Fundo branco no conteúdo */
         color: black;  /* Texto preto no conteúdo */
         max-width: 100% !important;  /* Garantir que o conteúdo ocupe toda a largura da tela */
-        padding-left: 0px !important;
-        padding-right: 0px !important;
+        padding-left: 20px !important;  /* Adicionar espaço à esquerda */
+        padding-right: 20px !important;  /* Adicionar espaço à direita */
+        padding-top: 20px !important;  /* Adicionar espaço no topo */
+        padding-bottom: 20px !important;  /* Adicionar espaço na parte inferior */
     }
 
     .css-6qob1r {

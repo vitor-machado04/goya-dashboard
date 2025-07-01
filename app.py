@@ -20,7 +20,7 @@ st.markdown(
     <style>
     /* Ajustar o texto na área de conteúdo (dados e tabelas) */
     .block-container {
-        background-color: #324280;  /* Fundo branco no conteúdo */
+        background-color: white;  /* Fundo branco no conteúdo */
         color: black;  /* Texto preto no conteúdo */
         max-width: 100% !important;  /* Garantir que o conteúdo ocupe toda a largura da tela */
         padding-left: 20px !important;  /* Adicionar espaço à esquerda */

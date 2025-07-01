@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from utils import load_data, apply_filters
 from datetime import datetime
+from io import StringIO
 
 st.set_page_config(
     page_title="Dashboard de Pagamentos",
@@ -67,20 +68,31 @@ st.markdown(
 
 def load_data():
     file_path = "./data/book.csv"
+    
+    # Verificar se o arquivo existe no caminho local
     if os.path.exists(file_path):
-        print("Arquivo encontrado")
+        df = pd.read_csv(file_path, encoding='ISO-8859-1', sep=";")
+        st.success(f"Arquivo {file_path} carregado com sucesso!")
     else:
-        print("Arquivo não encontrado")
+        st.warning(f"Arquivo {file_path} não encontrado!")
+        
+        # Permitir ao usuário fazer o upload de um arquivo CSV
+        uploaded_file = st.file_uploader("Faça o upload de um arquivo CSV", type="csv")
+        if uploaded_file is not None:
+            # Carregar o arquivo CSV enviado pelo usuário
+            df = pd.read_csv(uploaded_file, encoding='ISO-8859-1', sep=";")
+            st.success("Arquivo enviado com sucesso!")
+        else:
+            st.error("Por favor, faça o upload de um arquivo CSV.")
+            return None
 
-    df = pd.read_csv(file_path, encoding='ISO-8859-1', sep=";")
-
+    # Processamento de dados
     df['Valor'] = df['Valor'].apply(lambda x: float(x.replace('.', '').replace(',', '.').strip()))
     df['Data'] = pd.to_datetime(df['Mês'], format="%d/%m/%Y")
     
     return df
 
 def apply_filters(df, nome, data_inicio, data_fim, documento):
-
     if nome:
         df = df[df['Nome'].str.contains(nome, case=False, na=False)]
 
@@ -94,34 +106,35 @@ def apply_filters(df, nome, data_inicio, data_fim, documento):
 
 df = load_data()
 
-current_year = datetime.now().year
-start_date = datetime(current_year, 1, 1)
+if df is not None:  # Verifique se os dados foram carregados corretamente
+    current_year = datetime.now().year
+    start_date = datetime(current_year, 1, 1)
 
-st.title("🦷 Dashboard de Pagamentos")
+    st.title("🦷 Dashboard de Pagamentos")
 
-st.sidebar.header("Filtros")
+    st.sidebar.header("Filtros")
 
-nome = st.sidebar.text_input("Filtrar por Nome")
+    nome = st.sidebar.text_input("Filtrar por Nome")
 
-data_inicio = st.sidebar.date_input("Data Início", value=start_date)
-data_fim = st.sidebar.date_input("Data Fim", value=datetime.now())
+    data_inicio = st.sidebar.date_input("Data Início", value=start_date)
+    data_fim = st.sidebar.date_input("Data Fim", value=datetime.now())
 
-documento = st.sidebar.text_input("Filtrar por CPF/CNPJ")
+    documento = st.sidebar.text_input("Filtrar por CPF/CNPJ")
 
-filtered_df = apply_filters(df, nome, data_inicio, data_fim, documento)
+    filtered_df = apply_filters(df, nome, data_inicio, data_fim, documento)
 
-st.write("Dados Filtrados:")
-st.dataframe(filtered_df)
+    st.write("Dados Filtrados:")
+    st.dataframe(filtered_df)
 
-st.subheader("Melhores Meses - Total Pago")
-monthly_payment = filtered_df.groupby(filtered_df['Data'].dt.month)['Valor'].sum().sort_values(ascending=False)
-monthly_payment.index = monthly_payment.index.map({1: 'Jan', 2: 'Fev', 3: 'Mar', 4: 'Abr', 5: 'Mai', 6: 'Jun', 7: 'Jul', 8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez'})
-st.bar_chart(monthly_payment)
+    st.subheader("Melhores Meses - Total Pago")
+    monthly_payment = filtered_df.groupby(filtered_df['Data'].dt.month)['Valor'].sum().sort_values(ascending=False)
+    monthly_payment.index = monthly_payment.index.map({1: 'Jan', 2: 'Fev', 3: 'Mar', 4: 'Abr', 5: 'Mai', 6: 'Jun', 7: 'Jul', 8: 'Ago', 9: 'Set', 10: 'Out', 11: 'Nov', 12: 'Dez'})
+    st.bar_chart(monthly_payment)
 
-st.subheader("Clientes que mais fazem atendimento")
-top_clients = filtered_df.groupby('Nome')['Valor'].sum().sort_values(ascending=False).head(10)
-st.bar_chart(top_clients)
+    st.subheader("Clientes que mais fazem atendimento")
+    top_clients = filtered_df.groupby('Nome')['Valor'].sum().sort_values(ascending=False).head(10)
+    st.bar_chart(top_clients)
 
-st.subheader("Valor Total")
-total_value = filtered_df['Valor'].sum()
-st.write(f"R$ {total_value:,.2f}")
+    st.subheader("Valor Total")
+    total_value = filtered_df['Valor'].sum()
+    st.write(f"R$ {total_value:,.2f}")

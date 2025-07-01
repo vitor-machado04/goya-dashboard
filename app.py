@@ -18,36 +18,13 @@ st.sidebar.image(logo_path, width=200)
 st.markdown(
     """
     <style>
-    /* Definir o fundo branco e texto preto para a aplicação */
-    .reportview-container {
-        background-color: white;  /* Cor do fundo branco para toda a aplicação */
-        color: black;  /* Texto preto no conteúdo */
-    }
-
-    .css-6qob1r {
-        background-color: #324280;
-    }
-
-    .css-1y4qcq6 {
-        background-color: #324280;
-    }
-
-    /* Estilizar o fundo da barra lateral (sidebar) */
-    .sidebar .sidebar-content {
-        background-image: linear-gradient(#2e7bcf, #2e7bcf);  /* Fundo azul na sidebar */
-        color: white;  /* Texto branco na sidebar */
-    }
-
-    .st-emotion-cache-jx6q2s {
-        background-color: #324280 !important;  /* Fundo azul para a barra lateral */
-        color: white !important;  /* Texto branco na barra lateral */
-    }
-
     /* Ajustar o texto na área de conteúdo (dados e tabelas) */
     .block-container {
         background-color: white;  /* Fundo branco no conteúdo */
         color: black;  /* Texto preto no conteúdo */
-        width: 100% !important;  /* Garantir que o conteúdo ocupe toda a largura da tela */
+        max-width: 100% !important;  /* Garantir que o conteúdo ocupe toda a largura da tela */
+        padding-left: 0px !important;
+        padding-right: 0px !important;
     }
 
     /* Garantir que a tabela tenha fundo branco e texto preto e ocupe a largura total */
@@ -55,26 +32,26 @@ st.markdown(
         color: black !important;  /* Texto preto dentro da tabela */
         background-color: white !important;  /* Fundo branco */
         width: 100% !important;  /* Aumentar a largura da tabela para 100% da página */
+        table-layout: auto !important;  /* Permitir ajuste automático das colunas */
     }
 
+    /* Estilizar as células para adicionar um pouco de espaçamento */
     .stDataFrame th, .stDataFrame td {
         text-align: left !important;  /* Alinhar o texto à esquerda */
         padding: 10px !important;  /* Adicionar um pouco de espaçamento nas células */
     }
 
-    /* Estilo para o input na barra lateral (sidebar) */
-    .sidebar .stTextInput input {
-        color: white !important;  /* Texto branco dentro dos inputs na sidebar */
-    }
-
-    /* Estilo para outros inputs também */
-    input, .stNumberInput input {
-        color: black !important;  /* Texto preto dentro dos inputs */
-    }
-
-    /* Garantir que o fundo da aplicação geral seja branco */
+    /* Garantir que a aplicação não tenha margens adicionais */
     .stApp {
-        background-color: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Ajustar a barra lateral */
+    .sidebar .sidebar-content {
+        background-image: linear-gradient(#2e7bcf, #2e7bcf);  /* Fundo azul na sidebar */
+        color: white;  /* Texto branco na sidebar */
+        width: 250px !important;  /* Definir uma largura fixa para a sidebar */
     }
     </style>
     """, 
@@ -139,7 +116,7 @@ if df is not None:  # Verifique se os dados foram carregados corretamente
     filtered_df = apply_filters(df, nome, data_inicio, data_fim, documento)
 
     st.write("Dados Filtrados:")
-    st.dataframe(filtered_df)
+    st.dataframe(filtered_df, use_container_width=True)
 
     st.subheader("Melhores Meses - Total Pago")
     monthly_payment = filtered_df.groupby(filtered_df['Data'].dt.month)['Valor'].sum().sort_values(ascending=False)

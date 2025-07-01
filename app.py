@@ -47,12 +47,19 @@ st.markdown(
     .block-container {
         background-color: white;  /* Fundo branco no conteúdo */
         color: black;  /* Texto preto no conteúdo */
+        width: 100% !important;  /* Garantir que o conteúdo ocupe toda a largura da tela */
     }
 
-    /* Garantir que a tabela tenha fundo branco e texto preto */
+    /* Garantir que a tabela tenha fundo branco e texto preto e ocupe a largura total */
     .stDataFrame table, .stDataFrame th, .stDataFrame td {
         color: black !important;  /* Texto preto dentro da tabela */
         background-color: white !important;  /* Fundo branco */
+        width: 100% !important;  /* Aumentar a largura da tabela para 100% da página */
+    }
+
+    .stDataFrame th, .stDataFrame td {
+        text-align: left !important;  /* Alinhar o texto à esquerda */
+        padding: 10px !important;  /* Adicionar um pouco de espaçamento nas células */
     }
 
     /* Estilo para o input na barra lateral (sidebar) */

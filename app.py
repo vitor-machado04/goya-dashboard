@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 from utils import load_data, apply_filters
 from datetime import datetime
 
@@ -65,7 +66,12 @@ st.markdown(
 )
 
 def load_data():
-    file_path = "data/book.csv"
+    file_path = "./data/book.csv"
+    if os.path.exists(file_path):
+        print("Arquivo encontrado")
+    else:
+        print("Arquivo não encontrado")
+
     df = pd.read_csv(file_path, encoding='ISO-8859-1', sep=";")
 
     df['Valor'] = df['Valor'].apply(lambda x: float(x.replace('.', '').replace(',', '.').strip()))

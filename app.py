@@ -24,6 +24,14 @@ st.markdown(
         color: black;  /* Texto preto no conteúdo */
     }
 
+    .css-6qob1r {
+        background-color: #324280;
+    }
+
+    .css-1y4qcq6 {
+        background-color: #324280;
+    }
+
     /* Estilizar o fundo da barra lateral (sidebar) */
     .sidebar .sidebar-content {
         background-image: linear-gradient(#2e7bcf, #2e7bcf);  /* Fundo azul na sidebar */

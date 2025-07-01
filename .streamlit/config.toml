@@ -1,0 +1,5 @@
+[theme]
+primaryColor = "#324280"             # Cor principal (azul para a sidebar)
+backgroundColor = "#ffffff"          # Cor de fundo branco para o conteúdo
+secondaryBackgroundColor = "#ffffff" # Cor de fundo secundária (para a área de conteúdo)
+textColor = "black"                  # Cor do texto
